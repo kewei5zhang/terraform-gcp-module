@@ -1,4 +1,3 @@
-variable service_project_id {}
 variable build_project_id {}
 variable substitution_vars {
   default = {
