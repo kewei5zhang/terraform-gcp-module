@@ -13,5 +13,11 @@ variable env_names {
 variable build_env {
   default = "nonprod-build"
 }
-
-
+variable repo_owner {
+  default = "kewei5zhang"
+}
+variable module_name_list {
+  description = "A list of module names"
+  type        = list(string)
+  default     = ["bootstrap-cloudbuid"]
+}
