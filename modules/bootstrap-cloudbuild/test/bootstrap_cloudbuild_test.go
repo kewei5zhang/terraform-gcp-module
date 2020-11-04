@@ -1,9 +1,9 @@
 package test
 
 import (
-	"fmt"
-	"strings"
-	"testing"
+//	"fmt"
+//	"strings"
+//	"testing"
 
 //	"github.com/gruntwork-io/terratest/modules/gcp"
 //	"github.com/gruntwork-io/terratest/modules/random"
