@@ -36,5 +36,5 @@ steps:
       - GO111MODULE=on
       - GOPATH=. 
     args: 
-      - mod vendor
       - test
+
