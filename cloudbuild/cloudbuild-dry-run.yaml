@@ -32,5 +32,9 @@ steps:
   - id: terratest
     name: gcr.io/cloud-builders/go
     dir: modules/${_MODULE}/test
-    args: ['test']
-    env: ["GOPATH=."]
+    env: 
+      - GO111MODULE=on
+      - GOPATH=. 
+    args: 
+      - mod vendor
+      - test
