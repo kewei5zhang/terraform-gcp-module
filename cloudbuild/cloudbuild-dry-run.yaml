@@ -32,8 +32,6 @@ steps:
   - id: terratest
     name: gcr.io/cloud-builders/go
     dir: modules/${_MODULE}/test
-    env: 
-      - GOPATH=. 
     args: 
-      - test
+      - env
 
