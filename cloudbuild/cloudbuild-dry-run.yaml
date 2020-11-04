@@ -35,5 +35,5 @@ steps:
     env:
       - GOPATH=.
     args: 
-      - mod init
+      - test
 
