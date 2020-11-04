@@ -32,6 +32,8 @@ steps:
   - id: terratest
     name: gcr.io/cloud-builders/go
     dir: modules/${_MODULE}/test
+    env:
+      - GOPATH=.
     args: 
-      - env
+      - go mod init github.com/kewei5zhang/${REPO_NAME}
 
