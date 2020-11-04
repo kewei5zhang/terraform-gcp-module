@@ -35,5 +35,5 @@ steps:
     env:
       - GOPATH=.
     args: 
-      - go mod init github.com/kewei5zhang/${REPO_NAME}
+      - mod init github.com/kewei5zhang/${REPO_NAME}
 
