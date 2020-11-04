@@ -31,9 +31,11 @@ steps:
       - cloudbuild/bin/terraform-plan.sh
   - id: terratest
     name: gcr.io/cloud-builders/go
-    dir: modules/${_MODULE}/test
+    entrypoint: sh
     env:
-      - GOPATH=.
-    args: 
-      - test
+      - ENV=${_ENV}
+      - MODULE=${_MODULE}
+      - PROJECT_ID=${PROJECT_ID}
+    args:
+      - cloudbuild/bin/terratest-go.sh
 
