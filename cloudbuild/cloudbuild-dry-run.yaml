@@ -39,14 +39,3 @@ steps:
       - GOOGLE_PROJECT=${PROJECT_ID}
     args:
       - cloudbuild/bin/terratest-go.sh
-  - id: tagging
-    name: gcr.io/cloud-builders/git
-    entrypoint: sh
-    env:
-      - ENV=${_ENV}
-      - MODULE=${_MODULE}
-      - PROJECT_ID=${PROJECT_ID}
-      - BUILD_ID=${BUILD_ID}
-      - GOOGLE_PROJECT=${PROJECT_ID}
-    args:
-      - cloudbuild/bin/git-tagging.sh
