@@ -36,6 +36,7 @@ steps:
       - ENV=${_ENV}
       - MODULE=${_MODULE}
       - PROJECT_ID=${PROJECT_ID}
+      - GOOGLE_PROJECT=${PROJECT_ID}
     args:
       - cloudbuild/bin/terratest-go.sh
 
