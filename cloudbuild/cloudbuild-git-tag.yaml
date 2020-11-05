@@ -16,6 +16,4 @@ steps:
       - PROJECT_ID=${PROJECT_ID}
       - BRANCH_NAME=${BRANCH_NAME}
     args:
-      - -exuo
-      - pipefail
       - cloudbuild/bin/git-tagging.sh
