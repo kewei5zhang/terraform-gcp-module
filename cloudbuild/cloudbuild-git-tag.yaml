@@ -20,7 +20,7 @@ steps:
       - cloudbuild/bin/terraform-validate.sh
   - id: tag-release
     name: gcr.io/cloud-builders/git
-    entry: sh
+    entrypoint: sh
     env:
       - ENV=${_ENV}
       - MODULE=${_MODULE}
