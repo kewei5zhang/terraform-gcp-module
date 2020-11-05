@@ -6,10 +6,32 @@ substitutions:
   _TF_LOG: ''
 #options:
     #workerPool: ${_WORKER}
+tags:
 steps:
+  - name: gcr.io/cloud-builders/gcloud
+    entrypoint: 'bash'
+    args: [ '-c', 'gcloud secrets versions access latest --secret=kewei_github_id_rsa > /root/.ssh/kewei_github_id_rsa' ]
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
+  # Set up git with key and domain
+  - name: 'gcr.io/cloud-builders/git'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      chmod 600 /root/.ssh/kewei_github_id_rsa
+      cat <<EOF >/root/.ssh/config
+      Hostname github.com
+      IdentityFile /root/.ssh/kewei_github_id_rsa
+      EOF
+      ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
   - id: tag-release
     name: gcr.io/cloud-builders/git
-    entrypoint: sh
+    entrypoint: bash
     env:
       - ENV=${_ENV}
       - MODULE=${_MODULE}
@@ -17,3 +39,6 @@ steps:
       - BRANCH_NAME=${BRANCH_NAME}
     args:
       - cloudbuild/bin/git-tagging.sh
+    volumes:
+    - name: 'ssh'
+      path: /root/.ssh
