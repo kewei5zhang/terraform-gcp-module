@@ -7,17 +7,6 @@ substitutions:
 #options:
     #workerPool: ${_WORKER}
 steps:
-  - id: validate
-    name: ${_TERRAFORM_IMAGE}:${_TERRAFORM_VERSION}
-    entrypoint: sh
-    env:
-      - ENV=${_ENV}
-      - MODULE=${_MODULE}
-      - PROJECT_ID=${PROJECT_ID}
-    args:
-      - -exuo
-      - pipefail
-      - cloudbuild/bin/terraform-validate.sh
   - id: tag-release
     name: gcr.io/cloud-builders/git
     entrypoint: sh
