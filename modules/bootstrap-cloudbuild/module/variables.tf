@@ -8,7 +8,7 @@ variable substitution_vars {
 variable env_names {
   description = "A list of environment names"
   type        = list(string)
-  default     = ["nonprod"]
+  default     = ["dev","qa"]
 }
 variable build_env {
   default = "nonprod-build"
