@@ -19,5 +19,5 @@ variable repo_owner {
 variable module_name_list {
   description = "A list of module names"
   type        = list(string)
-  default     = ["bootstrap-cloudbuid"]
+  default     = ["resource-gcs"]
 }
