@@ -1,7 +1,7 @@
 substitutions:
   _TERRAFORM_IMAGE: 'hashicorp/terraform'
   _TERRAFORM_VERSION: '0.12.26'
-  _ENV: 'sandpit'
+  _ENV: 'nonprod'
   _MODULE: ''
   _TF_LOG: ''
 #options:
