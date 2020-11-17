@@ -14,24 +14,24 @@ terraform {
 # }
 
 # Create Module CI Cloudbuild trigger for unit-testing based on feature branch
-# resource google_cloudbuild_trigger module_dry_run {
-#   provider    = google-beta
-#   count       = length(var.module_name_list)
-#   description = "module ${var.module_name_list[count.index]} - dry run"
-#   project     = var.build_project_id
-#   github {
-#     owner = var.repo_owner
-#     name  = "terraform-gcp-bootstrap"
-#     push {
-#       branch = "feature/${var.module_name_list[count.index]}*"
-#     }
-#   }
-#   filename      = "cloudbuild-dry-run.yaml"
-#   substitutions = merge(var.substitution_vars, { _MODULE = var.module_name_list[count.index] })
-#   included_files = [
-#     "modules/${var.module_name_list[count.index]}/module/**",
-#   ]
-# }
+resource google_cloudbuild_trigger module_dry_run {
+  provider    = google-beta
+  count       = length(var.module_name_list)
+  description = "module ${var.module_name_list[count.index]} - dry run"
+  project     = var.build_project_id
+  github {
+    owner = var.repo_owner
+    name  = "terraform-gcp-module"
+    push {
+      branch = "feature/${var.module_name_list[count.index]}-*"
+    }
+  }
+  filename      = "cloudbuild-dry-run.yaml"
+  substitutions = merge(var.substitution_vars, { _MODULE = var.module_name_list[count.index] })
+  included_files = [
+    "modules/${var.module_name_list[count.index]}/module/**",
+  ]
+}
 # Create Module CI Cloudbuild trigger for terraform-gcp-foundation static analysis
 resource google_cloudbuild_trigger infra_plan {
   provider    = google-beta
