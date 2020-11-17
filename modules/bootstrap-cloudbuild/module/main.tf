@@ -26,7 +26,7 @@ resource google_cloudbuild_trigger module_dry_run {
       branch = "feature/${var.module_name_list[count.index]}-*"
     }
   }
-  filename      = "cloudbuild-dry-run.yaml"
+  filename      = "cloudbuild/cloudbuild-dry-run.yaml"
   substitutions = merge(var.substitution_vars, { _MODULE = var.module_name_list[count.index] })
   included_files = [
     "modules/${var.module_name_list[count.index]}/module/**",
