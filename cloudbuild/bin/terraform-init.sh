@@ -7,7 +7,7 @@ cd modules/${MODULE}/example
 terraform get -update
 
 terraform init \
-	-backend-config="bucket=${PROJECT_ID}-statefile" \
+	-backend-config="bucket=${PROJECT_ID}-tfstate" \
 	-backend-config="prefix=${MODULE}-${ENV}" \
 	-reconfigure \
 	-get=false \
