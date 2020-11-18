@@ -98,9 +98,15 @@ resource google_cloudbuild_trigger infra_destroy {
   github {
     owner = var.repo_owner
     name  = "terraform-gcp-foundation"
+    push {
+      branch = "^master$"
+    }
   }
   filename      = "cloudbuild-destroy.yaml"
   substitutions = merge(var.substitution_vars, { _ACTION = "plan_only" })
+  included_files = [
+    "should not match anything here",
+  ]
 }
 
 
