@@ -5,7 +5,7 @@ VERSION='patch'
 
 tag_update () {
 	# get highest tag number, and add 1.0.0 if doesn't exist
-	git remote set-url origin git@github.com:kewei5zhang/terraform-gcp-module
+	git remote set-url origin git@github.com:$REPO_OWNER/$REPO_NAME
 	git fetch --unshallow
 	CURRENT_VERSION=$(git describe --abbrev=0 --tags 2>/dev/null)
 
@@ -51,7 +51,7 @@ tag_update () {
 	# only tag if no tag already
 	if [ -z "$NEEDS_TAG" ]; then
 		# set git identity
-		git config --global user.name "kewei5zhang" 
+		git config --global user.name $REPO_OWNER 
     	git config --global user.email "keweizhang411@gmail.com" 
 		git tag -a $NEW_TAG -m "module update in $module_name, tag version $NEW_TAG"
 		echo "Tagged with $NEW_TAG"

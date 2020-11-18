@@ -32,7 +32,7 @@ resource google_cloudbuild_trigger module_dry_run {
     "modules/${var.module_name_list[count.index]}/module/**",
   ]
 }
-# Create Module CI Cloudbuild trigger for terraform-gcp-foundation static analysis
+# Create Foundation CI Cloudbuild trigger for terraform-gcp-foundation static analysis
 resource google_cloudbuild_trigger infra_plan {
   provider    = google-beta
   count       = length(var.env_names)
@@ -51,7 +51,7 @@ resource google_cloudbuild_trigger infra_plan {
     "env/${var.env_names[count.index]}/**",
   ]
 }
-# Create Module CD Cloudbuild trigger for terraform-gcp-foundation code release
+# Create Foundation CD Cloudbuild trigger for terraform-gcp-foundation code release
 resource google_cloudbuild_trigger infra_release {
   provider    = google-beta
   count       = length(var.env_names)
@@ -70,7 +70,7 @@ resource google_cloudbuild_trigger infra_release {
     "env/${var.env_names[count.index]}/**",
   ]
 }
-# Create Module CD Cloudbuild trigger for terraform-gcp-foundation deployment
+# Create Foundation CD Cloudbuild trigger for terraform-gcp-foundation deployment
 resource google_cloudbuild_trigger infra_apply {
   provider    = google-beta
   count       = length(var.env_names)
@@ -89,7 +89,25 @@ resource google_cloudbuild_trigger infra_apply {
     "env/${var.env_names[count.index]}/**",
   ]
 }
-
+# Create Foundation Ops Cloudbuild trigger for terraform-gcp-foundation teardown
+resource google_cloudbuild_trigger infra_destroy {
+  provider    = google-beta
+  count       = length(var.env_names)
+  description = "infra env ${var.env_names[count.index]} - destroy"
+  project     = var.build_project_id
+  github {
+    owner = var.repo_owner
+    name  = "terraform-gcp-foundation"
+    push {
+      branch = "^master$"
+    }
+  }
+  filename      = "cloudbuild-destroy.yaml"
+  substitutions = merge(var.substitution_vars, { _ACTION = "plan_only" })
+  included_files = [
+    "should not match anything here",
+  ]
+}
 
 
 

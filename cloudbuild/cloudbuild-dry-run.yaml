@@ -30,8 +30,8 @@ steps:
       - pipefail
       - cloudbuild/bin/terraform-plan.sh
   - id: terratest
-    name: gcr.io/cloud-builders/go
-    entrypoint: sh
+    name: igordcsouza/terratest:${_TERRAFORM_VERSION}
+    entrypoint: bash
     env:
       - ENV=${_ENV}
       - MODULE=${_MODULE}
