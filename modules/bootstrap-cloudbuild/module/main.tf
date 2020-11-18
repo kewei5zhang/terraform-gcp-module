@@ -103,7 +103,7 @@ resource google_cloudbuild_trigger infra_destroy {
     }
   }
   filename      = "cloudbuild-destroy.yaml"
-  substitutions = merge(var.substitution_vars, { _ACTION = "plan_only" })
+  substitutions = merge(var.substitution_vars, { _ACTION = "plan_only", _ENV = var.env_names[count.index] })
   included_files = [
     "should not match anything here",
   ]
