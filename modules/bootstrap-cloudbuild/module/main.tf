@@ -113,7 +113,7 @@ resource google_cloudbuild_trigger infra_destroy {
 resource "google_pubsub_subscription" "env_apply_handler" {
   count = length(var.env_names)
   name  = "${var.env_names[count.index]}-apply-handler"
-  topic = google_pubsub_topic.cloud_builds.name
+  topic = data.google_pubsub_topic.cloud_builds.name
 
   ack_deadline_seconds = 20
 
@@ -128,7 +128,7 @@ resource "google_pubsub_subscription" "env_apply_handler" {
 resource "google_pubsub_subscription" "env_destroy_handler" {
   count = length(var.env_names)
   name  = "${var.env_names[count.index]}-destroy-handler"
-  topic = google_pubsub_topic.cloud_builds.name
+  topic = data.google_pubsub_topic.cloud_builds.name
 
   ack_deadline_seconds = 20
 
