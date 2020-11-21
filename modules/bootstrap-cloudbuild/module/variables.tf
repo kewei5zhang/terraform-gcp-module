@@ -1,4 +1,5 @@
 variable build_project_id {}
+
 variable substitution_vars {
   default = {
     _ENV                = "nonprod"

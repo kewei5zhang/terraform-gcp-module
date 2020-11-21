@@ -109,6 +109,35 @@ resource google_cloudbuild_trigger infra_destroy {
   ]
 }
 
+# Cloudbuild ENV MGMT Subcriber Handlers
+resource "google_pubsub_subscription" "env_apply_handler" {
+  count = length(var.env_names)
+  name  = "${var.env_names[count.index]}-apply-handler"
+  topic = "cloud-builds"
 
+  ack_deadline_seconds = 20
+
+  labels = {
+    ENV = "${var.env_names[count.index]}"
+    Handler = "apply"
+  }
+
+  filter = "tags.items=${var.env_names[count.index]}-apply"
+}
+
+resource "google_pubsub_subscription" "env_destroy_handler" {
+  count = length(var.env_names)
+  name  = "${var.env_names[count.index]}-destroy-handler"
+  topic = "cloud-builds"
+
+  ack_deadline_seconds = 20
+
+  labels = {
+    ENV = "${var.env_names[count.index]}"
+    Handler = "destroy"
+  }
+
+  filter = "tags.items=${var.env_names[count.index]}-destroy"
+}
 
 
