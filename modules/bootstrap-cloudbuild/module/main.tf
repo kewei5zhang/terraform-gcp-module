@@ -115,7 +115,7 @@ resource google_cloudbuild_trigger mongodb_vm_ci {
     }
   }
   filename      = "cloudbuild.yaml"
-  substitutions = merge(var.substitution_vars})
+  substitutions = merge(var.substitution_vars)
   included_files = [
     "packer/**",
   ]
