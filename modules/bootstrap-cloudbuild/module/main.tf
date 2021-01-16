@@ -109,7 +109,7 @@ resource google_cloudbuild_trigger mongodb_vm_ci {
   project     = var.build_project_id
   github {
     owner = var.repo_owner
-    name  = "mongodb_vm"
+    name  = "mongodb-vm"
     push {
       branch = "develop"
     }
