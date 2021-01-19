@@ -2,17 +2,7 @@ terraform {
   required_version = ">= 0.12.26"
 }
 
-# Create Cloud Source Repositories
-# resource google_sourcerepo_repository terraform_gcp_foundation {
-#   project = data.google_project.build_project.project_id
-#   name    = "terraform-gcp-foundation"
-# }
-
-# resource google_sourcerepo_repository terraform_gcp_module {
-#   project = data.google_project.build_project.project_id
-#   name    = "terraform-gcp-module"
-# }
-
+# terraform-gce-module
 # Create Module CI Cloudbuild trigger for unit-testing based on feature branch
 resource google_cloudbuild_trigger module_dry_run {
   provider    = google-beta
@@ -32,6 +22,8 @@ resource google_cloudbuild_trigger module_dry_run {
     "modules/${var.module_name_list[count.index]}/module/**",
   ]
 }
+
+# terraform-gcp-foundation
 # Create Foundation CI Cloudbuild trigger for terraform-gcp-foundation static analysis
 resource google_cloudbuild_trigger infra_plan {
   provider    = google-beta
@@ -109,6 +101,23 @@ resource google_cloudbuild_trigger infra_destroy {
   ]
 }
 
-
-
+# mongodb-vm
+# Create Packer CI Cloudbuild trigger for mongodb-vm
+resource google_cloudbuild_trigger mongodb_vm_ci {
+  provider    = google-beta
+  description = "mongodb packer build"
+  project     = var.build_project_id
+  github {
+    owner = var.repo_owner
+    name  = "mongodb-vm"
+    push {
+      branch = "develop"
+    }
+  }
+  filename      = "cloudbuild.yaml"
+  substitutions = merge(var.substitution_vars)
+  included_files = [
+    "packer/**",
+  ]
+}
 
